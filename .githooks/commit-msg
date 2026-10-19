@@ -1,0 +1,24 @@
+#!/bin/sh
+# Strips AI attribution lines from commit messages so no AI tool is credited
+# as a co-author or contributor on GitHub. Enable with:
+#   git config core.hooksPath .githooks
+#
+# Removes:
+#   - Co-Authored-By trailers naming Claude, Anthropic, or noreply@anthropic.com
+#   - "Generated with Claude" / "Generated with [Claude Code]" lines
+#   - Claude session links
+
+MSG_FILE="$1"
+TMP_FILE="$(mktemp)"
+
+grep -viE \
+  -e '^co-authored-by:.*(claude|anthropic)' \
+  -e 'generated with \[?claude' \
+  -e '^claude-session:' \
+  -e 'claude\.ai/code/session' \
+  "$MSG_FILE" > "$TMP_FILE"
+
+# Trim trailing blank lines left behind
+sed -e :a -e '/^\n*$/{$d;N;ba' -e '}' "$TMP_FILE" > "$MSG_FILE"
+rm -f "$TMP_FILE"
+exit 0

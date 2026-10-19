@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Node / UI
+node_modules/
+ui/dist/
+
+# Env + secrets
+.env
+.env.*
+
+# Run outputs
+runs/
+trajectories/
+reports/
+
+# Local Claude Code overrides (shared .claude/settings.json IS committed)
+.claude/settings.local.json
+
+# OS
+.DS_Store

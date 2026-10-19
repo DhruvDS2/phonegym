@@ -1,0 +1,10 @@
+id: messages.send_late_text
+goal: "Text Sam that you're running 10 minutes late."
+initial_state: fixtures/default_phone.json
+max_steps: 25
+checker:
+  type: message_sent
+  params:
+    to: "Sam Lee"
+    contains_any: ["10 min", "10 minutes", "ten minutes"]
+tags: [messages, single_app, easy]
